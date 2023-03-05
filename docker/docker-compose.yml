@@ -9,6 +9,7 @@ services:
       - '8030:8030'
       - '8040:8040'
     depends_on:
+      - ipfs
       - postgres
     extra_hosts:
       - host.docker.internal:host-gateway
@@ -20,6 +21,12 @@ services:
       ipfs: 'ipfs:5001'
       ethereum: 'kava-evm:https://evm.kava.io'
       GRAPH_LOG: info
+  ipfs:
+    image: ipfs/go-ipfs:v0.10.0
+    ports:
+      - '5001:5001'
+    volumes:
+      - ./data/ipfs:/data/ipfs
   postgres:
     image: postgres
     ports:
